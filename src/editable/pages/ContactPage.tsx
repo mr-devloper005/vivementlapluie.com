@@ -1,6 +1,6 @@
 'use client'
 
-import { Building2, FileText, Image as ImageIcon, Mail, MapPin, Phone, Sparkles, Bookmark } from 'lucide-react'
+import { Bookmark, Building2, FileText, Image as ImageIcon, Mail, MapPin, Phone, Sparkles } from 'lucide-react'
 import { pagesContent } from '@/editable/content/pages.content'
 import { getFactoryState } from '@/design/factory/get-factory-state'
 import { getProductKind } from '@/design/factory/get-product-kind'
@@ -76,25 +76,27 @@ export default function ContactPage() {
 
   return (
     <EditableSiteShell className={tone.shell}>
-      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">{pagesContent.contact.eyebrow}</p>
-            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">{pagesContent.contact.title}</h1>
-            <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>{pagesContent.contact.description}</p>
-            <div className="mt-8 space-y-4">
+      <main className="mx-auto max-w-[1180px] px-4 py-6 text-black sm:px-6 lg:px-8">
+        <section className="editable-gradient-hero rounded-[2.2rem] px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
+          <p className="text-[11px] font-black uppercase tracking-[0.24em] text-[#7f2020]">{pagesContent.contact.eyebrow}</p>
+          <h1 className="mt-4 max-w-4xl text-5xl font-black leading-[0.9] tracking-[-0.07em] text-[#1d1830] sm:text-6xl lg:text-7xl">{pagesContent.contact.title}</h1>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-[#1d1830]/74">{pagesContent.contact.description}</p>
+        </section>
+        <section className="mt-10 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div className="text-black">
+            <div className="space-y-4">
               {lanes.map((lane) => (
-                <div key={lane.title} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
+                <div key={lane.title} className={`rounded-[1.8rem] p-5 shadow-[0_14px_36px_rgba(20,14,35,0.05)] ${tone.soft}`}>
                   <lane.icon className="h-5 w-5" />
-                  <h2 className="mt-3 text-xl font-semibold">{lane.title}</h2>
-                  <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{lane.body}</p>
+                  <h2 className="mt-3 text-xl font-black">{lane.title}</h2>
+                  <p className="mt-2 text-sm leading-7 text-black/70">{lane.body}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <h2 className="text-2xl font-semibold">{pagesContent.contact.formTitle}</h2>
+          <div className={`rounded-[2rem] p-7 text-black shadow-[0_20px_60px_rgba(20,14,35,0.08)] ${tone.panel}`}>
+            <h2 className="text-2xl font-black text-black">{pagesContent.contact.formTitle}</h2>
             <EditableContactLeadForm />
           </div>
         </section>
