@@ -6,7 +6,7 @@ type LoadingStateProps = {
 }
 
 function PulseBlock({ className }: { className?: string }) {
-  return <div className={cn('animate-pulse rounded-2xl bg-current/10', className)} />
+  return <div className={cn('animate-pulse rounded-2xl bg-[#1d1830]/8', className)} />
 }
 
 export function PageLoadingState({ label = 'Loading page', className }: LoadingStateProps) {
