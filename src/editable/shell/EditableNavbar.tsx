@@ -2,8 +2,7 @@
 
 import { useMemo, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { ChevronDown, Globe, LogIn, Menu, PlusCircle, Search, X } from 'lucide-react'
+import { LogIn, Menu, PlusCircle, Search, X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
 import { globalContent } from '@/editable/content/global.content'
 import { getVisualPreset, visualSystem } from '@/editable/theme/visual-system'
@@ -12,7 +11,6 @@ import { useEditableLocalAuthSession } from '@/editable/components/EditableLocal
 export function EditableNavbar() {
   const preset = getVisualPreset(visualSystem.recommendedPreset as any)
   const [open, setOpen] = useState(false)
-  const pathname = usePathname()
   const { session, logout } = useEditableLocalAuthSession()
   const navVars = {
     '--editable-nav-bg': '#fbfaf7',
