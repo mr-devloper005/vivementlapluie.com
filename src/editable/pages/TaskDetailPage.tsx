@@ -31,11 +31,13 @@ export async function EditableTaskDetailRoute({ task, params }: { task: TaskKey;
 const getContent = (post: SitePost) => post.content && typeof post.content === 'object' ? post.content as Record<string, unknown> : {}
 const asText = (value: unknown) => typeof value === 'string' ? value.trim() : ''
 const isUrl = (value: string) => value.startsWith('/') || /^https?:\/\//i.test(value)
+const stripHtml = (value: string) => value.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/&#39;/gi, "'").replace(/\s+/g, ' ').trim()
 
 const getField = (post: SitePost, keys: string[]) => {
   const content = getContent(post)
   for (const key of keys) {
-    const value = asText(content[key])
+    const raw = asText(content[key])
+    const value = raw ? stripHtml(raw) : ''
     if (value) return value
   }
   return ''
@@ -93,7 +95,6 @@ const formatPlainText = (raw: string) => {
     .join('')
 }
 
-const stripHtml = (value: string) => value.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/&#39;/gi, "'").replace(/\s+/g, ' ').trim()
 const summaryText = (post: SitePost) => {
   const raw = post.summary || asText(getContent(post).description) || asText(getContent(post).excerpt) || ''
   const clean = stripHtml(raw)
