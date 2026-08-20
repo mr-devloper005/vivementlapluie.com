@@ -30,7 +30,7 @@ const getImage = (post: SitePost) => {
   return media || compactRaw(content.featuredImage) || compactRaw(content.image) || compactRaw(content.thumbnail) || images || ''
 }
 const compactRaw = (value: unknown) => typeof value === 'string' ? value.trim() : ''
-const summaryOf = (post: SitePost) => post.summary || compactRaw(getContent(post).description) || compactRaw(getContent(post).excerpt) || 'Open this result for the full details.'
+const summaryOf = (post: SitePost) => stripHtml(post.summary || compactRaw(getContent(post).description) || compactRaw(getContent(post).excerpt) || '').replace(/\s+/g, ' ').trim() || 'Open this result for the full details.'
 
 const matches = (post: SitePost, query: string, category: string, task: string) => {
   const content = getContent(post)
@@ -55,16 +55,16 @@ function SearchResultCard({ post, index }: { post: SitePost; index: number }) {
   const strong = index % 5 === 0
 
   return (
-    <Link href={href} className={`group block overflow-hidden rounded-[1.9rem] border border-[#1d1830]/10 bg-white shadow-[0_16px_48px_rgba(20,14,35,0.06)] transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(20,14,35,0.1)] ${strong ? 'md:col-span-2' : ''}`}>
+    <Link href={href} className={`group block overflow-hidden rounded-[2rem] border border-[#1d1830]/10 bg-[#fffdf9] shadow-[0_16px_48px_rgba(20,14,35,0.06)] transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(20,14,35,0.1)] ${strong ? 'md:col-span-2' : ''}`}>
       {image ? (
-        <div className={`relative overflow-hidden bg-black ${strong ? 'aspect-[16/7]' : 'aspect-[16/10]'}`}>
+        <div className={`relative overflow-hidden bg-[#1d1830] ${strong ? 'aspect-[16/7]' : 'aspect-[16/10]'}`}>
           <img src={image} alt="" className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-          <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-black">{taskLabel}</span>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1d1830]/70 via-[#1d1830]/10 to-transparent" />
+          <span className="absolute left-4 top-4 rounded-full bg-[#fffdf9] px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-[#1d1830]">{taskLabel}</span>
         </div>
       ) : null}
       <div className="p-5 sm:p-6">
-        {!image ? <span className="rounded-full bg-[#1d1830] px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-white">{taskLabel}</span> : null}
+        {!image ? <span className="rounded-full bg-[#1d1830] px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] text-[#f6f3eb]">{taskLabel}</span> : null}
         <h2 className="mt-4 line-clamp-3 text-2xl font-black leading-[0.95] tracking-[-0.06em] text-[#1d1830]">{post.title}</h2>
         {summary ? <p className="mt-4 line-clamp-3 text-sm font-semibold leading-7 text-[#625a6f]">{summary}</p> : null}
         <span className="mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] opacity-60 group-hover:opacity-100">Open result <ArrowRight className="h-4 w-4" /></span>
@@ -135,7 +135,7 @@ export default async function SearchPage({ searchParams }: { searchParams?: Prom
                 {results.map((post, index) => <SearchResultCard key={post.id || post.slug} post={post} index={index} />)}
               </div>
             ) : (
-              <div className="mt-8 rounded-[2rem] border border-dashed border-[#1d1830]/14 bg-white/70 p-10 text-center">
+              <div className="mt-8 rounded-[2rem] border border-dashed border-[#1d1830]/10 bg-white/70 p-10 text-center">
                 <p className="text-2xl font-black tracking-[-0.04em]">No matching posts found.</p>
                 <p className="mt-3 text-sm font-semibold text-[#625a6f]">Try a different keyword, task type, or category.</p>
               </div>
