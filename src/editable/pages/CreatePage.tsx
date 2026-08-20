@@ -2,7 +2,7 @@
 
 import { FormEvent, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, CheckCircle2, FileText, ImageIcon, Lock, PlusCircle, Send, Sparkles } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Lock, Send } from 'lucide-react'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
 import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
@@ -22,17 +22,7 @@ type DraftPost = {
 
 const STORE_KEY = 'slot4:created-posts'
 
-const taskIcon: Record<string, typeof FileText> = {
-  article: FileText,
-  listing: Sparkles,
-  classified: PlusCircle,
-  image: ImageIcon,
-  profile: Sparkles,
-  pdf: FileText,
-  sbm: ArrowRight,
-}
-
-const fieldClass = 'rounded-2xl border border-[var(--editable-border)] bg-white px-4 py-3 text-sm font-bold text-[var(--editable-page-text,#2f1d16)] outline-none transition placeholder:text-current/35 focus:border-current'
+const fieldClass = 'rounded-2xl border border-[var(--editable-border)] bg-[#fffdf9] px-4 py-3 text-sm font-bold text-[var(--editable-page-text,#1d1830)] outline-none transition placeholder:text-current/35 focus:border-current'
 
 const saveDraft = (draft: DraftPost) => {
   try {
@@ -47,7 +37,7 @@ const saveDraft = (draft: DraftPost) => {
 export default function CreatePage() {
   const { session } = useEditableLocalAuthSession()
   const enabledTasks = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled), [])
-  const [task, setTask] = useState<TaskKey>((enabledTasks[0]?.key || 'article') as TaskKey)
+  const [task] = useState<TaskKey>((enabledTasks[0]?.key || 'article') as TaskKey)
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
   const [summary, setSummary] = useState('')
@@ -85,7 +75,7 @@ export default function CreatePage() {
     return (
       <EditableSiteShell>
         <main className="min-h-screen bg-[#f6f3eb] px-4 py-16 text-[#1d1830] sm:px-6 lg:px-8">
-          <section className="mx-auto grid max-w-5xl gap-8 rounded-[2.2rem] bg-white p-7 shadow-[0_30px_90px_rgba(15,23,42,0.08)] md:grid-cols-[0.9fr_1.1fr] md:p-10">
+          <section className="mx-auto grid max-w-5xl gap-8 rounded-[2.2rem] bg-[#fffdf9] p-7 shadow-[0_30px_90px_rgba(20,14,35,0.08)] md:grid-cols-[0.9fr_1.1fr] md:p-10">
             <div className="flex h-full min-h-72 items-center justify-center rounded-[2rem] bg-[#1d1830] text-[#f6f3eb]">
               <Lock className="h-20 w-20 opacity-80" />
             </div>
@@ -95,7 +85,7 @@ export default function CreatePage() {
               <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-[#625a6f]">{pagesContent.create.locked.description}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href="/login" className="inline-flex items-center gap-2 rounded-xl bg-[#1d1830] px-6 py-3 text-sm font-black text-[#f6f3eb]">Login <ArrowRight className="h-4 w-4" /></Link>
-                <Link href="/signup" className="inline-flex items-center gap-2 rounded-xl border border-[#1d1830]/10 bg-white px-6 py-3 text-sm font-black">Sign up</Link>
+                <Link href="/signup" className="inline-flex items-center gap-2 rounded-xl border border-[#1d1830]/10 bg-[#fffdf9] px-6 py-3 text-sm font-black">Sign up</Link>
               </div>
             </div>
           </section>
@@ -108,24 +98,11 @@ export default function CreatePage() {
     <EditableSiteShell>
       <main className="min-h-screen bg-[#f6f3eb] text-[#1d1830]">
         <section className="mx-auto max-w-[1180px] px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
-          <div className="grid gap-8 rounded-[2.2rem] bg-white p-6 shadow-[0_30px_90px_rgba(15,23,42,0.08)] lg:grid-cols-[0.85fr_1.15fr] lg:p-10">
+          <div className="grid gap-8 rounded-[2.2rem] bg-[#fffdf9] p-6 shadow-[0_30px_90px_rgba(20,14,35,0.08)] lg:grid-cols-[0.85fr_1.15fr] lg:p-10">
             <aside>
               <p className="text-xs font-black uppercase tracking-[0.28em] text-[#7f2020]">{pagesContent.create.hero.badge}</p>
               <h1 className="mt-5 text-5xl font-black leading-[0.92] tracking-[-0.08em] sm:text-7xl">{pagesContent.create.hero.title}</h1>
               <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-[#625a6f]">{pagesContent.create.hero.description}</p>
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                {enabledTasks.map((item) => {
-                  const Icon = taskIcon[item.key] || FileText
-                  const active = item.key === task
-                  return (
-                    <button key={item.key} type="button" onClick={() => setTask(item.key)} className={`rounded-2xl border p-4 text-left transition ${active ? 'border-current bg-[#1d1830] text-[#f6f3eb]' : 'border-[#1d1830]/10 bg-[#f6f3eb] hover:-translate-y-0.5'}`}>
-                      <Icon className="h-5 w-5" />
-                      <span className="mt-3 block text-sm font-black">{item.label}</span>
-                      <span className="mt-1 block text-xs font-semibold opacity-65">{item.description}</span>
-                    </button>
-                  )
-                })}
-              </div>
             </aside>
 
             <form onSubmit={submit} className="rounded-[2.2rem] border border-[#1d1830]/10 bg-[#f6f3eb] p-5 sm:p-7">
@@ -134,7 +111,7 @@ export default function CreatePage() {
                   <p className="text-xs font-black uppercase tracking-[0.22em] text-[#625a6f]">Create {activeTask?.label || 'post'}</p>
                   <h2 className="mt-1 text-3xl font-black tracking-[-0.06em]">{pagesContent.create.formTitle}</h2>
                 </div>
-                <span className="rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em]">{session.name}</span>
+                <span className="rounded-full bg-[#fffdf9] px-4 py-2 text-xs font-black uppercase tracking-[0.16em]">{session.name}</span>
               </div>
 
               <div className="mt-6 grid gap-4">
