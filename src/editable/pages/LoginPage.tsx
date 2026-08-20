@@ -19,7 +19,7 @@ export default function LoginPage() {
             <h1 className="mt-5 max-w-xl text-5xl font-black leading-[0.9] tracking-[-0.07em] sm:text-6xl">{pagesContent.auth.login.title}</h1>
             <p className="mt-6 max-w-lg text-base leading-8 text-[#1d1830]/72">{pagesContent.auth.login.description}</p>
           </div>
-          <div className="rounded-[2rem] border border-[#1d1830]/10 bg-white p-6 shadow-[0_24px_70px_rgba(16,36,31,0.12)] sm:p-8">
+          <div className="rounded-[2rem] border border-[#1d1830]/10 bg-[#fffdf9] p-6 shadow-[0_24px_70px_rgba(20,14,35,0.08)] sm:p-8">
             <h2 className="text-2xl font-black tracking-[-0.04em]">{pagesContent.auth.login.formTitle}</h2>
             <EditableLocalLoginForm />
             <p className="mt-5 text-sm text-[#625a6f]">New here? <Link href="/signup" className="font-black underline-offset-4 hover:underline">{pagesContent.auth.login.createCta}</Link></p>

@@ -14,14 +14,14 @@ export default function AboutPage() {
           </div>
         </section>
         <section className="mx-auto mt-10 grid max-w-[1180px] gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <article className="rounded-[2rem] border border-[#1d1830]/10 bg-white p-8 shadow-[0_20px_60px_rgba(20,14,35,0.07)] lg:p-12">
+          <article className="rounded-[2rem] border border-[#1d1830]/10 bg-[#fffdf9] p-8 shadow-[0_20px_60px_rgba(20,14,35,0.08)] lg:p-12">
             <div className="space-y-4 text-lg leading-8 text-[#625a6f]">
               {pagesContent.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
           </article>
           <aside className="space-y-4">
             {pagesContent.about.values.map((value) => (
-              <div key={value.title} className="rounded-[1.8rem] border border-[#1d1830]/10 bg-white p-6 shadow-[0_14px_36px_rgba(20,14,35,0.05)]">
+              <div key={value.title} className="rounded-[1.8rem] border border-[#1d1830]/10 bg-[#fffdf9] p-6 shadow-[0_14px_36px_rgba(20,14,35,0.05)]">
                 <h2 className="text-xl font-black tracking-[-0.04em]">{value.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-[#625a6f]">{value.description}</p>
               </div>

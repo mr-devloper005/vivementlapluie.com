@@ -4,7 +4,6 @@ import { useMemo, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { LogIn, Menu, PlusCircle, Search, X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
-import { globalContent } from '@/editable/content/global.content'
 import { getVisualPreset, visualSystem } from '@/editable/theme/visual-system'
 import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
 
@@ -43,13 +42,8 @@ export function EditableNavbar() {
 
       <nav className="mx-auto flex min-h-[92px] w-full max-w-[var(--editable-container)] items-center gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex shrink-0 items-center gap-3">
-          <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition-transform group-hover:-rotate-2">
-            <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-8 w-8 object-contain" />
-          </span>
-          <span className="hidden min-w-0 md:block">
-            <span className="block max-w-[220px] truncate text-lg font-black tracking-[-0.04em]">{SITE_CONFIG.name}</span>
-            <span className="block max-w-[220px] truncate text-[11px] font-black uppercase tracking-[0.18em] opacity-55">{globalContent.nav?.tagline || SITE_CONFIG.tagline}</span>
-          </span>
+            <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-10 w-10 object-contain" />
+          <span className="hidden text-lg font-black tracking-[-0.04em] md:block">{SITE_CONFIG.name}</span>
         </Link>
 
         
